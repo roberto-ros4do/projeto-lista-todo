@@ -1,3 +1,5 @@
+import json
+
 def listar(agenda):
    print('------LISTA-------')
    if not agenda:
@@ -11,7 +13,16 @@ def listar(agenda):
             status = ' '
         print(f'[{i}] {tarefa["nome"]} [{status}]')
 
-agenda = []
+try:
+    with open("agenda.json", "r") as arquivo:
+        agenda = json.load(arquivo)
+except (FileNotFoundError, json.JSONDecodeError):
+    agenda = []
+
+def salvar(agenda):
+    with open("agenda.json", "w") as arquivo:
+        json.dump(agenda, arquivo)
+
 while True:
   print('======MENU=======')
   print('[1] ADICIONAR')
@@ -26,6 +37,7 @@ while True:
           afazer = input('Adicione um afazer ')
           agenda.append({'nome':afazer, 'feito': False})
           print('Adicionado com sucesso! ')
+          salvar(agenda)
         case 2:
             listar(agenda)
 
@@ -35,6 +47,7 @@ while True:
           if 0<= remover< len(agenda):
                 agenda.pop(remover)
                 print('Removido com sucesso! ')
+                salvar(agenda)
           else:
                 print(f'Insira um número entre 0 e {len(agenda) - 1}')
           listar(agenda)
@@ -45,6 +58,7 @@ while True:
             if 0<= concluido < len(agenda):
                    agenda[concluido]["feito"] = True
                    print('Marcado com sucesso! ')
+                   salvar(agenda)
             else:
                 print(f'Insira um número entre 0 e {len(agenda) - 1}')
             listar(agenda)
