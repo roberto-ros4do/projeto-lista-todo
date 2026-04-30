@@ -1,4 +1,4 @@
-# projeto-lista-todo
+# Lista-Tarefas
 Projeto de lista de tarefas desenvolvido em Python com foco em prática de lógica de programação, manipulação de dados e persistência em arquivos.
 
 Funcionalidades:
